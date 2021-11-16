@@ -24,25 +24,20 @@ result =0
 for i in range(1,n+1):
     parent[i] = i
     
-# x = []
-# y = []
-# z = []
-# 모든 노드에 대한 좌표 값 입력받기
-# for i in range(1, n + 1):
-#     data = list(map(int, input().split()))
-#     x.append((data[0], i))
-#     y.append((data[1], i))
-#     z.append((data[2], i))
+x = []
+y = []
+z = []
+모든 노드에 대한 좌표 값 입력받기
+for i in range(1, n + 1):
+    data = list(map(int, input().split()))
+    x.append((data[0], i))
+    y.append((data[1], i))
+    z.append((data[2], i))
     
-# # 최소거리를 구하기 위해서
-# x.sort()
-# y.sort()
-# z.sort()
-
-x= [(-1, 3), (10, 4), (11, 1), (14, 2), (19, 5)]
-y= [(-15, 1), (-5, 2), (-4, 4), (-4, 5), (-1, 3)]
-z= [(-15, 1), (-15, 2), (-5, 3), (-1, 4), (10, 5)]
-
+# 최소거리를 구하기 위해서
+x.sort()
+y.sort()
+z.sort()
 
 # 모든 노드에 대한 좌표 값 입력받기
 #min(|xA-xB|, |yA-yB|, |zA-zB|) 이와 같은 조건때문에 x,y,z sort해서 간선정보 구할려고 x,y,z 따로 분리
