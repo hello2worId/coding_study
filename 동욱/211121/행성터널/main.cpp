@@ -19,7 +19,7 @@ public:
     }
 
     static int get_parent(int child);
-    static bool union_parent(int lhs, int rhs);
+    static void union_parent(int lhs, int rhs);
     static bool is_sibling(int lhs, int rhs);
 
 public:    
@@ -39,7 +39,7 @@ int Edge::get_parent(int child) {
     return parents[child];
 }
 
-bool Edge::union_parent(int lhs, int rhs) {
+void Edge::union_parent(int lhs, int rhs) {
     lhs = get_parent(lhs);
     rhs = get_parent(rhs);
 
@@ -56,6 +56,7 @@ bool Edge::is_sibling(int lhs, int rhs) {
 
 typedef struct _Pos {
     int x, y, z;
+    int index;
 } Pos;
 
 int get_min_len(const Pos& lhs, const Pos& rhs) {
@@ -78,14 +79,43 @@ int main() {
         Edge::parents.push_back(i);
         
         cin >> x >> y >> z;
-        loc.push_back({x, y, z});
+        loc.push_back({x, y, z, i});
     }
 
-    for(int lhs=0; lhs<N; lhs++) {
-        for(int rhs=lhs+1; rhs<N; rhs++) {
-            edges.push_back(Edge(lhs, rhs, get_min_len(loc[lhs], loc[rhs])));
-        }
+    sort(loc.begin(), loc.end(), [](const auto& lhs, const auto& rhs){
+        return lhs.x < rhs.x;
+    });
+
+    for(int i=0; i<loc.size() - 1; i++) {
+        edges.push_back(Edge(loc[i].index, loc[i+1].index, loc[i+1].x - loc[i].x));
+
     }
+
+    sort(loc.begin(), loc.end(), [](const auto& lhs, const auto& rhs){
+        return lhs.y < rhs.y;
+    });
+
+    for(int i=0; i<loc.size() - 1; i++) {
+        edges.push_back(Edge(loc[i].index, loc[i+1].index, loc[i+1].y - loc[i].y));
+
+    }
+
+    sort(loc.begin(), loc.end(), [](const auto& lhs, const auto& rhs){
+        return lhs.z < rhs.z;
+    });
+
+    for(int i=0; i<loc.size() - 1; i++) {
+        edges.push_back(Edge(loc[i].index, loc[i+1].index, loc[i+1].z - loc[i].z));
+
+    }
+
+
+
+    // for(int lhs=0; lhs<N; lhs++) {
+    //     for(int rhs=lhs+1; rhs<N; rhs++) {
+    //         edges.push_back(Edge(lhs, rhs, get_min_len(loc[lhs], loc[rhs])));
+    //     }
+    // }
     
     sort(edges.begin(), edges.end());
 
